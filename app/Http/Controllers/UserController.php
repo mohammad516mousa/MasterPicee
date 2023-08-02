@@ -24,6 +24,8 @@ class UserController extends Controller
         // Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
 
+        $formFields['role_id'] = 1;
+
         // Create User
         $user = User::create($formFields);
 
@@ -50,18 +52,29 @@ class UserController extends Controller
     }
 
     // Authenticate User
-    public function authenticate(Request $request) {
-        $formFields = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
+  // Authenticate User
+public function authenticate(Request $request) {
+    $formFields = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => 'required'
+    ]);
 
-        if(auth()->attempt($formFields)) {
-            $request->session()->regenerate();
+    if (auth()->attempt($formFields)) {
+        $request->session()->regenerate();
 
+        $user = auth()->user();
+
+        if ($user->role_id == 1) {
+            return redirect('/')->with('message', 'You are now logged in!');
+        } elseif ($user->role_id == 2) {
+            return redirect('/listings/manage')->with('message', 'You are now logged in as admin!');
+        } else {
+            // Handle other role_ids or cases here if needed
             return redirect('/')->with('message', 'You are now logged in!');
         }
-
-        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
+
+    return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+}
+
 }

@@ -1,4 +1,6 @@
 <x-layout>
+    @include('partials._hero')
+
   <x-card class="p-10">
     <header>
       <h1 class="text-3xl text-center font-bold my-6 uppercase">

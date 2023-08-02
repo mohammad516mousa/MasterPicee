@@ -1,15 +1,20 @@
+
+
 <x-layout>
+    @include('partials._hero')
+
   <x-card class="p-10 max-w-lg mx-auto mt-24">
     <header class="text-center">
-      <h2 class="text-2xl font-bold uppercase mb-1">Edit Gig</h2>
+      <h2 class="text-2xl font-bold uppercase mb-1">Edit services</h2>
       <p class="mb-4">Edit: {{$listing->title}}</p>
+
     </header>
 
     <form method="POST" action="/listings/{{$listing->id}}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <div class="mb-6">
-        <label for="company" class="inline-block text-lg mb-2">Company Name</label>
+        <label for="company" class="inline-block text-lg mb-2">services Name</label>
         <input type="text" class="border border-gray-200 rounded p-2 w-full" name="company"
           value="{{$listing->company}}" />
 
@@ -75,7 +80,7 @@
 
       <div class="mb-6">
         <label for="logo" class="inline-block text-lg mb-2">
-          Company Logo
+            services Logo
         </label>
         <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo" />
 
@@ -89,7 +94,7 @@
 
       <div class="mb-6">
         <label for="description" class="inline-block text-lg mb-2">
-          Job Description
+            services Description
         </label>
         <textarea class="border border-gray-200 rounded p-2 w-full" name="description" rows="10"
           placeholder="Include tasks, requirements, salary, etc">{{$listing->description}}</textarea>
@@ -101,7 +106,7 @@
 
       <div class="mb-6">
         <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
-          Update Gig
+          Update services
         </button>
 
         <a href="/" class="text-black ml-4"> Back </a>
